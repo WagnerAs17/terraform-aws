@@ -1,0 +1,20 @@
+name: "Deploy DEV"
+
+on:
+  push: 
+    branches:
+      - develop
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  terraform:
+    uses: ./.github/workflows/terraform.yml
+    with:
+      environment: dev
+      aws-assume-role-arn: "arn:aws:iam::654654190521:role/githubactions-wagneralmeida-pipelines"
+      aws-region: "sa-east-1"
+      aws-statefile-s3-bucket: "wagneralmeida17-pipelines-terraform-sa-east-1"
+      aws-lock-dynamodb-table: "wagneralmeida17-terraform-lock"
